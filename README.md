@@ -34,3 +34,10 @@ silently add bytes you did not ask for.
 - `encode(bytes: Uint8Array): string`
 - `decode(text: string): Uint8Array`
 - `Z85Error` — thrown for malformed input.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
